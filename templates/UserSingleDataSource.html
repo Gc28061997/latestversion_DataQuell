@@ -1,0 +1,220 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %}
+Single Data Validation
+{% endblock %}
+
+{% block styles %}
+{{super()}}
+<link rel="stylesheet" href="{{url_for('.static', filename='dashboard.css')}}">
+{% endblock %}
+
+{% block content %}
+<header>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a href="https://zingmind.com/"><img class="navbar-brand" src="../static/zingmind.png"   ALT="align box" ALIGN=CENTER></a>
+        <h6 class="logo-text">DATAQUELL</h6>
+
+      </div>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <div class="btn-group" role="group">
+            <!-- <div class="dropdown">
+              <button class="login_button dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Select Here &#9660;
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+               
+                <li><a class="dropdown-item" href="{{url_for('login')}}">Logout</a></li>
+              </div>
+            </div> -->
+           </div>
+          <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+            <form  name="form0" method="POST"  action="{{url_for('User_data_validation')}}" >
+              <a href="{{url_for('dashboard')}}"><button type="button" name="Submitbutton" class="login_button">Home</button></a>&nbsp;&nbsp;
+
+
+              <a href="{{url_for('User_data_validation')}}"><button type="submit" name="Submitbutton"   value="SingleDataSource" class="login_button">File Validation</button></a>&nbsp;&nbsp;
+              <a href="{{url_for('User_data_validation')}}"><button type="submit" name="Submitbutton"  value="DoubleDataSource" class="login_button">Compare DataSource</button></a>&nbsp;&nbsp;
+              <a href="{{url_for('login')}}"><button type="button" name="Submitbutton" class="login_button">Logout</button></a>&nbsp;&nbsp;
+
+            </form>
+          
+           
+
+
+          </div>
+          </ul>
+          
+        
+  
+        
+      </div>
+    </div>
+  </nav>
+    
+    <div class="container-fluid" style="margin-top:20px;">
+      <div class="row">
+        
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+
+          <h1 class="page-header" > File Validation</h1>
+<div>
+
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+      {% for category, message in messages %}
+          <div class="alert alert-{{ category }}">
+              {{ message }}
+          </div>
+      {% endfor %}
+  {% endif %}
+{% endwith %}
+</div>
+<!-- <form name="form1" id="form1" method="POST"  action="{{url_for('User_SingleDataSource')}}" enctype="multipart/form-data">
+      
+    
+    <br><label>Data Source : </label>
+    <select name="datasourcetype" id="datasourcetype"  onchange="data_source_type()" required>
+        <option >--Choose--</option>
+        <option value="CSV">CSV</option>
+        <option value="XLSX">XLSX</option>
+    
+    </select><br>
+    
+    
+    <div id="div1">
+
+    </div>
+    <input type='submit' form ='form1' value='submit'>
+    
+</form> -->
+
+
+<!-- <div class="form-container">
+  <form name="form1" id="form1" style="margin-left: 117px;" method="POST" action="{{url_for('User_SingleDataSource')}}" enctype="multipart/form-data">
+    <label><h4>Data Source :</h4></label>
+    <select name="datasourcetype" id="datasourcetype" onchange="data_source_type()" required>
+      <option>--Choose--</option>
+      <option value="CSV">CSV</option>
+      <option value="XLSX">XLSX</option>
+    </select><br>
+    <div id="div1"></div>
+    <input type='submit' form='form1' value='Submit' class="unique-submit-button">
+  </form> -->
+
+<form name="form1" id="form1" method="POST" action="{{url_for('User_SingleDataSource')}}" enctype="multipart/form-data">
+  <label for="firstname"><h4>DataSource: </h4></label>
+  <select name="datasourcetype" id="datasourcetype" onchange="data_source_type()" required>
+  <br>
+  <option>--Choose--</option>
+      <option value="CSV">CSV</option>
+      <option value="XLSX">XLSX</option>
+    </select><br>
+    <div id="div1"></div>
+    <input type='submit' form='form1' value='Submit' class="unique-submit-button">
+  </form>
+
+
+        </div>
+      </div>
+    </div>
+
+     <script>
+        function data_source_type() {        
+    var data_type = document.getElementById("datasourcetype");
+    if (data_type.value == "CSV") {
+        var div = document.getElementById("div1");
+        div.innerHTML = "";
+        var file_path_label = document.createElement("label");
+        file_path_label.innerHTML = "<h4>File Path : </h4> ";
+        var file_path_input = document.createElement("input");
+        file_path_input.type = "text";
+        file_path_input.name = "DataSourcePath";  // Corrected from "DataSourcePath" to "FilePath"
+        file_path_input.id = "file_path";
+        div.appendChild(file_path_label);
+        div.appendChild(file_path_input);
+        div.appendChild(document.createElement("br"));
+        div.appendChild(document.createElement("br"));
+
+        var delimiter_label = document.createElement("label");
+        delimiter_label.innerHTML = "<h4> Delimiter : </h4>  ";
+        var delimiter_input = document.createElement("input");
+        delimiter_input.type = "text";
+        delimiter_input.name = "Delimiter";
+        delimiter_input.id = "Delimiter";
+        delimiter_input.required = true;
+        delimiter_input.size = 2;
+        div.appendChild(delimiter_label);
+        div.appendChild(delimiter_input);
+        div.appendChild(document.createElement("br"));
+        div.appendChild(document.createElement("br"));
+
+
+        var select_rows_label = document.createElement("label");
+        select_rows_label.innerHTML = "<h4> Skip Rows :</h4> ";
+        var select_rows_input = document.createElement("input");
+        select_rows_input.type = "text";
+        select_rows_input.name = "skip_rows";
+        select_rows_input.value = "0";
+        select_rows_input.id = "skip_rows";
+        select_rows_input.size = 2;
+        div.appendChild(select_rows_label);
+        div.appendChild(select_rows_input);
+        div.appendChild(document.createElement("br"));
+        div.appendChild(document.createElement("br"));
+    }
+
+
+
+
+ 
+
+        
+            else if (data_type.value == "XLSX") {
+                var div = document.getElementById("div1");
+                div.innerHTML = "";
+                var filepath = document.createElement("text");
+                filepath.innerHTML = "<br><label><h4>File path : </h4></label> <input style='display: inline;' type='text' name='DataSourcePath' id='DataSourcePath' size='10' accept='.xls, .xlsx' required></input><br><br>";
+    
+                var sheet_name = document.createElement("text");
+                sheet_name.innerHTML = "<label><h4>Sheet name : </h4></label> <input type='text' name='sheet_name' id='sheet_name' size='10'></input><br>";
+    
+                var skip_rows = document.createElement("text");
+                skip_rows.innerHTML = "<label><h4>Skip Rows : </h4></label> <input type='text' name='skip_rows' value='0' id='skip_rows' size='2' /><br>";
+    
+                var Column_Address = document.createElement("text");
+                Column_Address.innerHTML = "<label><h4>Column_Address : </h4></label> <input type='text' name='Column_Address' id='Column_Address' size='2' />";
+    
+                var Column_Address1 = document.createElement("text");
+                Column_Address1.innerHTML = " <label><h4>Column_Address1 : </h4></label> <input type='text' name='Column_Address1' id='Column_Address1' size='2' />";
+    
+                div.appendChild(filepath);
+                div.appendChild(sheet_name);
+                div.appendChild(skip_rows);
+                div.appendChild(Column_Address);
+                div.appendChild(Column_Address1);
+            }
+        }
+    </script>
+</div>
+    </div>
+  </header>
+{% endblock %}
+
+
+
+
+
+
+
+

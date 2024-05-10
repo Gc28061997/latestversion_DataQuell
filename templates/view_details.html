@@ -1,0 +1,57 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %}
+        User Dashboard
+    {% endblock %}
+    
+    {% block styles %}
+        {{ super() }}
+        <link rel="stylesheet" href="{{ url_for('.static', filename='dashboard.css') }}">
+    {% endblock %}
+    
+    {% block content %}
+        <header>
+            <nav class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a href="https://zingmind.com/"><img class="navbar-brand" src="../static/zingmind.png" ALT="align box" ALIGN=CENTER></a>
+                        <h6 class="logo-text">DataQuell</h6>
+
+                    </div>
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav navbar-right">
+                            <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                                <form name="form0" method="POST" action="{{ url_for('User_data_validation') }}">
+                                    <a href="{{ url_for('dashboard') }}">
+                                        <button type="button" name="Submitbutton" class="login_button">Home</button>
+                                      </a>
+                                    <a href="{{ url_for('User_data_validation') }}"><button type="submit" name="Submitbutton" value="SingleDataSource" class="login_button">File Validation</button></a>&nbsp;&nbsp;
+                                    <a href="{{ url_for('User_data_validation') }}"><button type="submit" name="Submitbutton" value="DoubleDataSource" class="login_button">Compare DataSource</button></a>&nbsp;&nbsp;
+                                    <a href="{{ url_for('login') }}"><button type="button" class="login_button">Logout</button></a>&nbsp;&nbsp;
+
+
+                                </form>
+                            </div>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+    
+
+        <body>
+            <div class="report-container">
+                <h1>HTML Report:</h1>
+                <!-- Render the HTML content -->
+                {{ html_content | safe }}
+            </div>
+        </body>
+
+{% endblock %}
+

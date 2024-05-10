@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cron Expression Examples</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+    }
+    h1 {
+        text-align: center;
+    }
+    table {
+        width: 80%;
+        margin: auto;
+        border-collapse: collapse;
+    }
+    th, td {
+        padding: 8px;
+        border-bottom: 1px solid #ddd;
+        text-align: left;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+</style>
+</head>
+<body>
+<h1>Cron Expression Examples</h1>
+<table>
+  <tr>
+    <th>Description</th>
+    <th>Cron Expression</th>
+  </tr>
+  <tr>
+    <td>Every minute</td>
+    <td>* * * * *</td>
+  </tr>
+  <tr>
+    <td>Every hour</td>
+    <td>0 * * * *</td>
+  </tr>
+  <tr>
+    <td>Every day at midnight</td>
+    <td>0 0 * * *</td>
+  </tr>
+  <tr>
+    <td>Every Monday at 9:00 AM</td>
+    <td>0 9 * * 1</td>
+  </tr>
+  <tr>
+    <td>Every January 1st at midnight</td>
+    <td>0 0 1 1 *</td>
+  </tr>
+  <tr>
+    <td>Every weekday at 5:30 PM</td>
+    <td>30 17 * * 1-5</td>
+  </tr>
+  <tr>
+    <td>Every 15 minutes</td>
+    <td>*/15 * * * *</td>
+  </tr>
+  <tr>
+    <td>Every 5 minutes during business hours</td>
+    <td>*/5 9-17 * * 1-5</td>
+  </tr>
+  <tr>
+    <td>Every 30 minutes on weekends</td>
+    <td>*/30 * * * 6,7</td>
+  </tr>
+  <tr>
+    <td>Every 30 seconds</td>
+    <td>* * * * *</td>
+  </tr>
+  <tr>
+    <td>Every 2 hours during weekdays</td>
+    <td>0 */2 * * 1-5</td>
+  </tr>
+  <tr>
+    <td>Every 10 minutes on weekends</td>
+    <td>*/10 * * * 6,7</td>
+  </tr>
+  <tr>
+    <td>Every 5 minutes from 9 AM to 5 PM on weekdays</td>
+    <td>*/5 9-17 * * 1-5</td>
+  </tr>
+  <tr>
+    <td>Every 10 minutes on Mondays</td>
+    <td>*/10 * * * 1</td>
+  </tr>
+  <tr>
+    <td>Every hour at 15 minutes past the hour</td>
+    <td>15 * * * *</td>
+  </tr>
+  <tr>
+    <td>Every 30 minutes on the 15th day of the month</td>
+    <td>*/30 * 15 * *</td>
+  </tr>
+  <tr>
+    <td>Every 3 hours on Sundays</td>
+    <td>0 */3 * * 0</td>
+  </tr>
+  <tr>
+    <td>Every 10 minutes during the first 15 days of the month</td>
+    <td>*/10 * 1-15 * *</td>
+  </tr>
+  <tr>
+    <td>Every 30 minutes on weekdays from 8 AM to 5 PM</td>
+    <td>*/30 8-17 * * 1-5</td>
+  </tr>
+  <tr>
+    <td>Every hour on the last day of the month</td>
+    <td>0 * L * *</td>
+  </tr>
+  <tr>
+    <td>Every 15 minutes on the 1st and 15th of the month</td>
+    <td>*/15 * 1,15 * *</td>
+  </tr>
+  <tr>
+    <td>Every 20 minutes on weekends</td>
+    <td>*/20 * * * 6,7</td>
+  </tr>
+</table>
+</body>
+</html>

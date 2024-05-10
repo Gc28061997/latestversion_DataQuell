@@ -1,0 +1,51 @@
+<!-- base.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Manage Users{% endblock %}</title>
+    {% block styles %}
+        <link rel="stylesheet" href="{{url_for('.static', filename='dashboard.css')}}">
+        <!-- Add any additional stylesheets here -->
+    {% endblock %}
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="https://zingmind.com/"><img class="navbar-brand" src="../static/zingmind.png"   ALT="align box" ALIGN=CENTER></a>
+                    <h6 class="logo-text">DataQuell</h6>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <!-- Add navigation links here -->
+                        {% block navigation %}
+                        {% endblock %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <!-- Add footer content here -->
+    </footer>
+
+    <!-- Add any JavaScript files here -->
+    {% block scripts %}
+    {% endblock %}
+</body>
+</html>

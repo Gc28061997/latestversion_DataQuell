@@ -1,0 +1,163 @@
+
+{% extends "bootstrap/base.html" %}
+
+{% block title %}
+User Dashboard
+{% endblock %}
+
+{% block styles %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('.static', filename='dashboard.css') }}">
+{% endblock %}
+
+{% block content %}
+<header>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+
+        <a href="https://zingmind.com/"><img class="navbar-brand" src="../static/zingmind.png" ALT="align box" ALIGN=CENTER></a>
+        <h6 class="logo-text">DATAQUELL</h6>
+
+      </div>
+
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+
+            <form name="form0" method="POST" action="{{ url_for('User_data_validation') }}">
+              <a href="{{ url_for('dashboard') }}"><button type="button" name="Submitbutton" class="login_button">Home</button>&nbsp;&nbsp;</a>
+              <a href="{{ url_for('User_data_validation') }}"><button type="submit" name="Submitbutton" value="SingleDataSource" class="login_button">File Validation</button></a>&nbsp;&nbsp;
+              <a href="{{ url_for('User_data_validation') }}"><button type="submit" name="Submitbutton" value="DoubleDataSource" class="login_button">Compare DataSource</button></a>&nbsp;&nbsp;
+              <a href="{{ url_for('login') }}"><button type="button" class="login_button">Logout</button></a>&nbsp;&nbsp;
+
+            </form>
+          </div>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+</header> 
+<table class="table">
+  <thead>
+    <tr>
+      <th>Process Name</th>
+      <th>Last Execution</th>
+      <th>Result</th>
+      <th>Schedule</th>
+      <th>Action</th>
+      <th>
+        <button class="btn btn-primary" data-toggle="modal" data-target="#addTaskModal">Add Scheduler</button>
+      </th>
+    </tr>
+  </thead>
+  <tbody id="dashboardTableBody">
+    {% for row in data %}
+      <tr>
+        <td>{{ row['filename'] }}</td>
+        <td>{{ row['Last_Execution_Time'] }}</td>
+        <td>{{ row['Overall_Result'] }}</td>
+        <!-- <td>
+          <a href="#" onclick="openPopup('/editpage.html', '{{ row['filename'] }}', '{{ row['Schedule'] }}'); return false;">{{ row['Human_Readable_Schedule'] }}</a>
+        </td> -->
+        <td>
+          <label onclick="openPopup('/editpage.html', '{{ row['filename'] }}', '{{ row['Schedule'] }}'); return false;">{{ row['Human_Readable_Schedule'] }}</label>
+      </td>
+        <td>
+          <a href="{{ url_for('run_driver') }}" class="btn btn-primary" target="_blank">Run</a>
+          <a href="{{ url_for('view_details') }}" class="btn btn-info" target="_blank">Result</a>
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<!-- Popup Modal-->
+
+<!-- Popup Modal-->
+<div class="modal fade" id="addTaskModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Add Schedule Task</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="taskDropdown">Select Task:</label>
+          <select class="form-control" id="taskDropdown">
+            {% for row in data %}
+              <option value="{{ row['filename'] }}">{{ row['filename'] }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="text">Enter Cron Expression:</label>
+          <input type="text" id="txt" class="form-control" placeholder="Enter text here">
+          <a href="/cronexpress">Cron Job Example</a>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" onclick="saveTask()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+ function openPopup(url, filename, schedule) {
+    // Define the width and height of the popup window
+    var width = 600;
+    var height = 400;
+    
+    // Calculate the position of the popup window to center it on the screen
+    var left = (window.innerWidth - width) / 2;
+    var top = (window.innerHeight - height) / 2;
+
+    // Construct the full URL with query parameters
+    var queryParams = new URLSearchParams();
+    queryParams.set('task', filename); // Pass task name as 'task' parameter
+    queryParams.set('schedule', schedule); // Pass schedule as 'schedule' parameter
+    var fullUrl = url + '?' + queryParams.toString();
+
+    // Open the popup window with the specified URL and dimensions
+    var popupWindow = window.open(fullUrl, 'Popup', 'width=' + width + ', height=' + height + ', left=' + left + ', top=' + top);
+
+    // Focus the popup window
+    if (popupWindow) {
+        popupWindow.focus();
+    }
+}
+
+
+
+
+  function saveTask() {
+    var selectedTask = $('#taskDropdown').val();
+    var scheduleTime = $('#txt').val();
+    $.ajax({
+      type: "POST",
+      url: "/saveTask",
+      data: { task: selectedTask, schedule: scheduleTime },
+      success: function(response) {
+        console.log(response);
+        $('#addTaskModal').modal('hide');
+      },
+      error: function(xhr, status, error) {
+        console.error(xhr.responseText);
+      }
+    });
+  }
+</script>
+
+{% endblock %}
+

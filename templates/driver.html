@@ -1,0 +1,84 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %}
+        User Dashboard
+    {% endblock %}
+    
+    {% block styles %}
+        {{ super() }}
+        <link rel="stylesheet" href="{{ url_for('.static', filename='dashboard.css') }}">
+    {% endblock %}
+    
+    {% block content %}
+    <header>
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a href="https://zingmind.com/"><img class="navbar-brand" src="../static/zingmind.png" ALT="align box" ALIGN=CENTER></a>
+              <h6 class="logo-text">DataQuell</h6>
+
+            </div>
+            <div class="navbar-collapse collapse">
+              <ul class="nav navbar-nav navbar-right">
+                <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+      
+                  <form name="form0" method="POST" action="{{ url_for('User_data_validation') }}">
+                    <a href="{{ url_for('dashboard') }}"><button type="button" name="Submitbutton" class="login_button">Home</button></a>&nbsp;&nbsp;
+                    <a href="{{ url_for('User_data_validation') }}"><button type="submit" name="Submitbutton" value="SingleDataSource" class="login_button">File Validation</button></a>&nbsp;&nbsp;
+                    <a href="{{ url_for('User_data_validation') }}"><button type="submit" name="Submitbutton" value="DoubleDataSource" class="login_button">Compare lDataSource</button></a>&nbsp;&nbsp;
+                    <a href="{{ url_for('login') }}"><button type="button" class="login_button">Logout</button></a>&nbsp;&nbsp;
+      
+                  </form>
+                </div>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      
+      
+      </header>
+    
+        <div class="rulefile-summary-container">
+            <h1 class="rulefile-summary-heading">RuleFile Summary</h1>
+            <a href="{{ url_for('view_details') }}" class="btn btn-primary rulefile-summary-view-btn" target="_blank">View Details</a>
+        
+            <table class="rulefile-summary-table" border="1">
+                <thead>
+                    <tr>
+                        <th class="rulefile-summary-table-header">Rule ID</th>
+                        <th class="rulefile-summary-table-header">Rule Name</th>
+                        <th class="rulefile-summary-table-header">Column Name</th>
+                        <th class="rulefile-summary-table-header">Validation Result</th>
+                        <th class="rulefile-summary-table-header">Data Type Rule File</th>
+                        <th class="rulefile-summary-table-header">Data Type Original File</th>
+                        <th class="rulefile-summary-table-header">Data Type Match</th>
+                        <th class="rulefile-summary-table-header">Rule Sequence</th>
+                        <th class="rulefile-summary-table-header">Sequence Match</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for index, row in Rule_Summary.iterrows() %}
+                    <tr class="rulefile-summary-table-row">
+                        <td class="rulefile-summary-table-data">{{ row['RuleId'] }}</td>
+                        <td class="rulefile-summary-table-data">{{ row['RuleName'] }}</td>
+                        <td class="rulefile-summary-table-data">{{ row['ColumnName'] }}</td>
+                        <td class="rulefile-summary-table-data">{{ row['Validation_Result'] }}</td>
+                        <td class="rulefile-summary-table-data">{{ row['Datatype_RuleFile'] }}</td>
+                        <td class="rulefile-summary-table-data">{{ row['Datatype_OrignalFile'] }}</td>
+                        <td class="rulefile-summary-table-data">{{ row['Datatype_Match'] }}</td>
+                        <td class="rulefile-summary-table-data">{{ row['RuleSequence'] }}</td>
+                        <td class="rulefile-summary-table-data">{{ row['SequenceMatch'] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+      {% endblock %}
+    
