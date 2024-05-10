@@ -1,0 +1,12 @@
+RuleId,RuleName,ColumnName,Validation_Result,Datatype_RuleFile,Datatype_OrignalFile,Datatype_Match,RuleSequence,SequenceMatch,ValidationOperator,Orignalsequence
+NA,Precheck-1,Precheck-Schema,Pass,NA,NA,NA,NA,True,,NA
+NA,Precheck-2,Precheck-Datatype,Fail,NA,NA,Fail,NA,True,,NA
+1,people_record.csv_Id validation,Id,Pass,int,string,False,1,True,None,1
+2,people_record.csv_User_Id validation,User_Id,Pass,string,string,True,2,True,None,2
+3,people_record.csv_First_Name validation,First_Name,Pass,string,string,True,3,True,None,3
+4,people_record.csv_Last_Name validation,Last_Name,Pass,string,string,True,4,True,None,4
+5,people_record.csv_Gender validation,Gender,Pass,string,string,True,5,True,None,5
+6,people_record.csv_Email validation,Email,Pass,string,string,True,6,True,None,6
+7,people_record.csv_Phone validation,Phone,Pass,string,string,True,7,True,None,7
+8,people_record.csv_Date_of_birth validation,Date_of_birth,Pass,string,string,True,8,True,None,8
+9,people_record.csv_Job_Title validation,Job_Title,Pass,string,string,True,9,True,None,9

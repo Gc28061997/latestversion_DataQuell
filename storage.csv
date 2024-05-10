@@ -1,0 +1,5 @@
+filename,Last_Execution_Time,Overall_Result,Schedule,Human_Readable_Schedule
+Task1,2024-04-29 15:30:38,Pass,2 * * * *,At 30 minutes past the hour
+Task2,2024-04-29 15:30:49,Pass,0 0 1 1 *,"At 12:00 AM, on day 1 of the month, only in January"
+Task3,2024-04-29 15:31:00,Pass,46 16 * * * *,"At 46 seconds past the minute, at 16 minutes past the hour"
+Task4,2024-04-29 15:30:38,Pass,2 * * * *,Every 2 minutes 
